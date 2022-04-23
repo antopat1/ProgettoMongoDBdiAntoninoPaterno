@@ -1,0 +1,179 @@
+{% extends 'base.html' %}
+{% block content %}
+<font color="bown"><div align="left"><h5>Cryptocurrency Exchange Platform</h5></div></font>
+
+
+   {% if not request.user.is_authenticated %}
+
+   <br>
+       <a class="nav-link" href="registrazione/"><font color="green"><li><b>Registra nuovo account</b></li></a>
+
+
+       <a class="nav-link" href="accounts/login"><font color="green"><li><b>Esegui Login</b></li></a>
+
+   {% endif %}
+
+   {% if request.user.is_authenticated  %}
+   <h5><font color="blue">Benvenuto/a! {{request.user }}</font></h5>
+
+       {% if not request.user.is_superuser %}
+
+   <p> Saldo wallet:<strong> Btc : {{btc_balance}}</strong> pari a<strong>: {{actual_dollar_BTC}} $</strong>
+       {% if current_customer.profit >= 0 %}
+       <br><br> Attualmente il tuo profitto è di <strong> {{current_customer.profit}} </strong>
+       {% endif %}
+       {% if current_customer.profit < 0 %}
+       <br><br> Attualmente la tua perdita è di <strong> {{current_customer.profit}} </strong>
+       {% endif %}
+       <br><br>  Il saldo in dollari residuo partendo dall'assegnazione iniziale è <strong> {{cust_dollar}} </strong></p>
+
+       {% endif %}
+
+       {% if request.user.is_superuser %}
+
+      <p> I privilegi di <strong> Amministratore della Piattaforma </strong> ti consentono  di interrogare il Database ed esportare i seguenti dati in formato <strong> Json:</strong></p>
+
+       {% endif %}
+
+{% if request.user.is_superuser %}
+<p>-----------------------------------------</p>
+<li><a href="profitsOrLoss/"><font color="green" size="4">Estrai profitto o perdite degli utenti</a></li>
+<br>
+<font color="blue" size="2"><li><a href="exportJsonByCollectionMdb/Transactions Orders coinciding in quantity and price buyer side/"><font color="blue" size="2">Estrai Tx coincidenti in prezzo e quantità lato acquirente</a></li>
+<li><a href="exportJsonByCollectionMdb/Transactions Orders coinciding in quantity and price selling side/"><font color="blue" size="2">Estrai Tx coincidenti in prezzo e quantità lato venditore</a></li>
+<li><a href="exportJsonByCollectionMdb/Favorable transactions buyer side/"><font color="blue" size="2">Estrai Tx favorevoli in quantità lato acquirente</a></li>
+<li><a href="exportJsonByCollectionMdb/Favorable transactions Selling side/"><font color="blue" size="2">Estrai Tx favorevoli in quantità lato venditore</a></li>
+
+<p>-----------------------------------------</p>
+{% endif %}
+<!--- Inizio Tabelle affiancate --->
+
+<CENTER>
+<TABLE CELLPADDING=40> <!--- Tabella invisibile che fa da contenitore --->
+<TR>
+
+<TD> <!--- Inizio della prima cella invisibile --->
+
+<!--- Prima tabella --->
+
+<TABLE BORDER=0>
+
+
+
+<TR><TH><table width="250" align="center" bgcolor="#00ff00" border="0" table-layout="auto"><tbody>
+<tr>
+<td width="600" bgcolor="#ffff00">OrderBook lato acquisti</td>
+</tr>
+</tbody></table></TH></TR>
+
+<TR><TD>  <div class="card-body">
+    {% if not request.user.is_superuser %}
+    <li><a href="publishBidOrder/"><font color="red" size="2"}>Piazza ordine Buy</li></a>
+    {% endif %}
+
+    {% if request.user.is_superuser %}
+    <li><a href="JsonActivBuyOrders/all"><font color="green" size="2"}>Estrai Json tutti ord. acquisto attivi</li></a>
+    {% endif %}
+    {% if not request.user.is_superuser %}
+    <li><a href="JsonActivBuyOrders/single"><font color="green" size="2"}>Estrai Json tuoi ordini acquisto </li></a>
+    {% endif %}
+    {% if not request.user.is_superuser %}
+    <li><a href="searchDeleteOrModify/BUY/single/"><font color="red" size="2"}>Visualizza tuoi ordini Buy per eseguire modifica o cancellazione</li></a>
+    {% endif %}
+    {% if request.user.is_superuser %}
+    <li><a href="searchDeleteOrModify/BUY/all/"><font color="red" size="2"}>Visualizza tutti ordini Buy per eseguire modifica o cancellazione</li></a>
+    {% endif %}
+    <br>
+        <table summary="" style="border:1px solid red; float:left;" class="table table-striped table-bordered table-hover table-sm " >
+
+            <thead>
+                <tr>
+                    <th scope="col"><font color="bown">*</font></th>
+                    <th scope="col"><font color="bown">Prezzo</font></th>
+                    <th scope="col"><font color="bown">Quantità</font></th>
+                    <th scope="col"><font color="bown">Timestamp Order</font></th>
+
+                </tr>
+            </thead>
+
+            {% for order in buy_bookOrder %}
+            <tbody>
+                <tr>
+                    <td><p>#</p></td>
+                    <td><p>{{order.price}}</p></td>
+                    <td><p>{{order.quantity}}</p></td>
+                    <td><p>{{order.publication_time}}</p></td>
+                </tr>
+            </tbody>
+            {% endfor %}
+        </table>
+     </div></TD></TR>
+</TABLE>
+
+</TD> <!--- Fine della prima cella invisibile --->
+
+<TD> <!--- Inizio della seconda cella invisibile --->
+
+<!--- Seconda tabella --->
+
+<TABLE BORDER=0>
+<TR><TH><table width="250" align="center" bgcolor="#00ff00" border="0" table-layout="auto"><tbody>
+<tr>
+<td width="600" bgcolor="#ffff00">OrderBook lato vendite</td>
+</tr>
+</tbody></table></TH></TR>
+<TR><TD><div class="card-body">
+    {% if not request.user.is_superuser %}
+    <li><a href="publishAskOrder/"><font color="red" size="2">Piazza ordine Sell</li></a>
+    {% endif %}
+
+    {% if request.user.is_superuser %}
+    <li><a href="JsonActivSellOrders/all"><font color="green" size="2"}>Estrai Json tutti ord. vendita attivi</li></a>
+    {% endif %}
+    {% if not request.user.is_superuser %}
+    <li><a href="JsonActivSellOrders/single"><font color="green" size="2"}>Estrai Json tuoi ordini di vendita </li></a>
+     {% endif %}
+    {% if not request.user.is_superuser %}
+    <li><a href="searchDeleteOrModify/SELL/single/"><font color="red" size="2">Visualizza tuoi ordini Sell per eseguire modifica o cancellazione</li></a>
+    {% endif %}
+    {% if request.user.is_superuser %}
+    <li><a href="searchDeleteOrModify/SELL/all/"><font color="red" size="2">Visualizza tutti ordini Sell per eseguire modifica o cancellazione</li></a>
+    {% endif %}
+    <br>
+        <table summary="" style="border:1px solid red; float:left;" class="table table-striped table-bordered table-hover table-sm">
+            <thead>
+                <tr>
+                    <th scope="col"><font color="bown">*</font></th>
+                    <th scope="col"><font color="bown">Prezzo</font></th>
+                    <th scope="col"><font color="bown">Quantità</font></th>
+                    <th scope="col"><font color="bown">Timestamp Order</font></th>
+                </tr>
+            </thead>
+            {% for order in sell_bookOrder %}
+            <tbody>
+                <tr>
+                    <td><p>#</p></td>
+                    <td><p>{{order.price}}</p></td>
+                    <td><p>{{order.quantity}}</p></td>
+                    <td><p>{{order.publication_time}}</p></td>
+                </tr>
+            </tbody>
+            {% endfor %}
+        </table>
+     </div></TD></TR>
+</TABLE>
+
+</TD> <!--- Fine della seconda cella invisibile --->
+
+</TR>
+</TABLE>
+</RIGHT>
+
+<!--- Fine Tabella Affiancata --->
+
+
+   {% endif %}
+
+
+{% endblock content %}
+

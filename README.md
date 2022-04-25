@@ -1,5 +1,5 @@
 # ProgettoMongoDBdiAntoninoPaterno
-(deploy address: https://github.com/antopat1/ProgettoMongoDBdiAntoninoPaterno & AwS http://cryptoplatform.sytes.net {http://13.37.18.60:8000/} )
+{deploy address: https://github.com/antopat1/ProgettoMongoDBdiAntoninoPaterno & AwS http://cryptoplatform.sytes.net ( http://13.37.18.60:8000 ) }
 
 
 Piattaforma scambio bitcoin

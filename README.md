@@ -1,40 +1,27 @@
 # ProgettoMongoDBdiAntoninoPaterno
 
+Bitcoin Exchange Platform
 
+- Utilizing the PyCharm IDE and leveraging the PyMongo distribution within the Django framework for document storage on the NoSQL MongoDB database, a trading platform has been developed that allows users to place buy and sell orders with transactional details.
 
-Piattaforma scambio bitcoin
+- Upon registration, each new user is assigned a variable amount of bitcoins between 1 and 10. Using an API query to the CoinMarketCap website, the current value of BTC is automatically updated.
 
--Utilizzando l’IDE PyCharm ed avvalendosi della distribuzione PyMongo all’interno framework Django per 
-l’archiviazione documentale su database non SQL MongoDb, si è realizzato una piattaforma di scambio 
-che consente di piazzare ordini di acquisto e ordini di vendita con relativi dettagli transazionali
+Functional views available for STANDARD USERS:
 
-- Ad ogni nuovo utente che si registra alla piattaforma attribuisce un quantità di bitcoin variabile tra 1 e 10
-Sfruttando un interrogazione API al sito CoinMarketCap, viene automatizzato l’aggiornamento al valore corrente di Btc
+- Upon typical user registration or after the login phase, users access the Home Page which displays their BTC and Dollar balances, as well as the profit or loss compared to the initially assigned position by the platform. It also shows the current buy and sell orders on the platform.
 
-Views funzionali disponibili per USER STANDARD
+At each OrderBook, users can:
 
--  Dalla tipica pagina di registrazione Utente o a seguito della fase di login si accede alla Home Page che , oltre 
-al saldo in BTC e Dollari , mostra profitto o perdita rispetto alla posizione inizialmente attribuita in modo 
-arbitrario dalla piattaforma nonché gli ordini di acquisto e vendita attualmente presenti sulla stessa
+- Place a new order
+- Extract a JSON of their orders
+- View the details of their orders to modify or delete them based on the specific ID
 
-- Dalla tipica pagina di registrazione Utente o a seguito della fase di login si accede alla Home Page che , oltre 
-al saldo in BTC e Dollari , mostra profitto o perdita rispetto alla posizione inizialmente attribuita in modo 
-arbitrario dalla piattaforma nonché gli ordini di acquisto e vendita attualmente presenti sulla stessa.
+• If a superuser accesses the platform, they will not be able to place orders but can perform queries regarding all users.
 
- In corrispondenza di ciascun OrderBook sarà possibile per l’utente 
- 
-- Pizzare un nuovo ordine
-- Estrarre un Json dei propri ordini
-- Visualizzare il dettagli degli stessi per modificare o cancellare degli ordini in base allo specifico ID
+• The superuser can:
 
-•  Se ad accedere alla piattaforma è un superuser , non si avrà la possibilità di piazzare ordini ma di eseguire 
-delle interrogazioni riguardanti la totalità degli utenti 
-
- • Il superUser potrà
- - Estrarre un Json di tutti gli ordini attivi in acquisto e vendita
-- Visualizzare il dettagli degli stessi per cancellare degli ordini in base allo specifico ID
-- Estrarre profitto o perdita di ciascun utente.
--Mostrare i dati di Collection MongoDb create in fase di match tra domanda ed offerta nel momento in cui 
-una transazione viene realizzata
-
+- Extract a JSON of all active buy and sell orders
+- View the details of orders to delete them based on the specific ID
+- Extract the profit or loss of each user
+- Show the data of MongoDB collections created during the matching process between supply and demand when a transaction is realized.
 
